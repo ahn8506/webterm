@@ -1,0 +1,8 @@
+[package]
+name = "webterm-core"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+alacritty_terminal = { path = "vendor/alacritty_terminal", default-features = false }
+webterm-frame = { path = "../frame" }

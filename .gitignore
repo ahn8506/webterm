@@ -1,0 +1,10 @@
+# Rust build output (host, web/*)
+target/
+# Tools installed locally by the build scripts
+.tools/
+# npm
+node_modules/
+# Renderer demo build output
+web/renderer/demo/dist/pkg/
+# Built by web/embed (npm run build); bundles third-party libraries
+extension/embed/

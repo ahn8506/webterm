@@ -1,0 +1,36 @@
+[package]
+name = "webterm-renderer-demo"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+webterm-renderer = { path = ".." }
+webterm-frame = { path = "../../frame" }
+# build.ps1 installs the wasm-bindgen CLI matching whatever version the
+# lockfile resolves this to.
+wasm-bindgen = "0.2.129"
+wasm-bindgen-futures = "0.4"
+js-sys = "0.3"
+console_error_panic_hook = "0.1"
+web-sys = { version = "0.3.106", features = [
+    "Document",
+    "Element",
+    "Event",
+    "EventTarget",
+    "HtmlCanvasElement",
+    "HtmlElement",
+    "CssStyleDeclaration",
+    "Location",
+    "Performance",
+    "UrlSearchParams",
+    "Window",
+] }
+
+[profile.release]
+opt-level = 3
+debug = false
+strip = true

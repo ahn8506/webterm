@@ -1,0 +1,240 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: #101216;
+  color: #d8dce4;
+  font: 13px/1.4 system-ui, sans-serif;
+}
+
+header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  background: #1a1d23;
+  border-bottom: 1px solid #2a2e37;
+}
+
+header input,
+header select,
+header button,
+#ask input,
+#ask select,
+#tests input,
+#search input,
+#search button,
+#tests select,
+#tests button {
+  background: #242830;
+  color: inherit;
+  border: 1px solid #353a45;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font: inherit;
+}
+
+#port {
+  max-width: 22em;
+}
+
+#port-custom {
+  width: 8em;
+}
+
+#counters {
+  color: #8b93a3;
+  font-variant-numeric: tabular-nums;
+}
+
+#status {
+  margin-left: auto;
+  color: #8b93a3;
+}
+
+#status.error {
+  color: #ff7b72;
+}
+
+header label,
+#ask label {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: #8b93a3;
+}
+
+#workspace {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+#tests,
+#search {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: #1a1d23;
+  border-left: 1px solid #2a2e37;
+}
+
+#tests[hidden],
+#search[hidden],
+#search-load[hidden] {
+  display: none;
+}
+
+#tests .row,
+#search .row,
+#ask .row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#tests label {
+  color: #8b93a3;
+}
+
+#device-url,
+#search-query,
+#ask-input,
+#test-file {
+  flex: 1;
+  min-width: 0;
+}
+
+#test-log {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font: 12px/1.45 Consolas, "Cascadia Mono", monospace;
+  color: #aab1bf;
+}
+
+#test-log .pass {
+  color: #7ee787;
+}
+
+#test-log .fail {
+  color: #ff7b72;
+}
+
+#screen {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 6px;
+}
+
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Invisible but focusable; sits in the corner so the IME popup has an anchor. */
+#input {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  resize: none;
+  outline: none;
+}
+
+#screen:focus-within {
+  box-shadow: inset 0 0 0 1px #3d6fd6;
+}
+
+#search-status {
+  color: #8b93a3;
+}
+
+#search-status.error {
+  color: #ff7b72;
+}
+
+#search-results {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #8b93a3;
+}
+
+#search .hit {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  text-align: left;
+  cursor: pointer;
+  font: 12px/1.45 Consolas, "Cascadia Mono", monospace;
+}
+
+#search .hit:hover {
+  border-color: #3d6fd6;
+}
+
+#search .hit .score {
+  flex: none;
+  color: #7ee787;
+}
+
+#search .hit .line {
+  word-break: break-word;
+  color: #d8dce4;
+}
+
+#console {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#ask {
+  margin: 0;
+  padding: 8px;
+  background: #1a1d23;
+  border-top: 1px solid #2a2e37;
+}
+
+#ask-hint {
+  margin-top: 4px;
+  color: #8b93a3;
+  font: 12px/1.45 Consolas, "Cascadia Mono", monospace;
+}
+
+#ask-hint.error {
+  color: #ff7b72;
+}
+
+#ask-hint button {
+  margin-left: 6px;
+  padding: 1px 8px;
+  background: #242830;
+  color: #d8dce4;
+  border: 1px solid #353a45;
+  border-radius: 4px;
+  font: inherit;
+  cursor: pointer;
+}

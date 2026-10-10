@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "WebTerm Serial",
+  "version": "0.1.0",
+  "description": "Serial terminal backed by a native messaging host.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxBix+n41IMz9kpoRBDvodG3XPcrKscOSl2RbCBKNlYYcmXkEzz6mW9YVIksMbgq3hHZGbj3yWywI7Ma4v5naSDuX4YpxTA9p5FVEhVztDr3ua+mH27j+yQ4DC9nAvBIyfUBh1CC0bOthHyMDmIQyPlnkg5SXUwLRY0NRi5CcvQyqFyIZp1PVm4JG7gQhM9eJG8Fx4s2S6Zm4JIIP3l9wrMa35SAqsbQsYUHatHCPSs8OnrEOt1ZwonIizP2Z9LbvBrnlcwGg4vFpWf4xqRxN+A8x9/jKP3dyRSyvgZQi9Y5eQvINsjFTCL92WzuJV5aUKweB3DbrYkPKeNIsjkViSwIDAQAB",
+  "permissions": ["nativeMessaging", "scripting"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "action": { "default_title": "WebTerm" },
+  "background": { "service_worker": "background.js" },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

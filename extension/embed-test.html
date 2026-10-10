@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebTerm embedding test</title>
+    <style>
+      body { font: 14px/1.4 system-ui, sans-serif; margin: 16px; max-width: 980px; background: #14161a; color: #d8dce3; }
+      h1 { font-size: 18px; margin: 0 0 4px; }
+      h2 { font-size: 14px; margin: 18px 0 6px; color: #9aa4b2; font-weight: 600; }
+      .note { color: #9aa4b2; margin: 0 0 12px; }
+      button, input { font: inherit; padding: 5px 9px; background: #23272e; color: inherit; border: 1px solid #3a404a; border-radius: 4px; }
+      button:disabled { opacity: 0.5; }
+      #query { width: 420px; }
+      #status { margin-left: 8px; }
+      .ok { color: #7bd88f; } .warn { color: #f5c26b; } .err { color: #ff7b72; white-space: pre-wrap; }
+      table { border-collapse: collapse; width: 100%; }
+      td, th { text-align: left; padding: 3px 10px 3px 0; vertical-align: top; }
+      th { color: #9aa4b2; font-weight: 600; }
+      td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+      td.line { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+      progress { width: 220px; vertical-align: middle; }
+      #facts td:first-child { color: #9aa4b2; white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <h1>EmbeddingGemma in the extension page</h1>
+    <p class="note">
+      URL parameters: <code>?device=webgpu|wasm</code>, <code>dtype=q4|q8|fp32</code>,
+      <code>file=model_no_gather</code>, <code>dims=768|512|256|128</code>, <code>fallback=1</code> (allow WASM if WebGPU fails), <code>auto=1</code>.
+    </p>
+
+    <button id="load">Load model</button>
+    <span id="status">Not loaded. The first load downloads the model weights.</span>
+
+    <h2>Download</h2>
+    <table id="files"></table>
+
+    <h2>Runtime</h2>
+    <table id="facts"></table>
+
+    <h2>Search</h2>
+    <form id="search">
+      <input id="query" value="why did the network connection drop" spellcheck="false" />
+      <button id="go" disabled>Search</button>
+    </form>
+    <table id="results"></table>
+
+    <script type="module" src="embed-test.js"></script>
+  </body>
+</html>

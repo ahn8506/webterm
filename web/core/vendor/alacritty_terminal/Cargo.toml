@@ -1,0 +1,40 @@
+# Vendored from alacritty_terminal 0.26.0 (crates.io), trimmed so it builds for
+# wasm32-unknown-unknown. WebTerm has no PTY; bytes come from a serial port.
+#
+# Changes against upstream:
+#   - removed src/tty/ and src/event_loop.rs, and their `pub mod` lines in src/lib.rs
+#   - removed the dependencies only those modules used: home, libc, polling,
+#     rustix, rustix-openpty, signal-hook (unix), miow, piper, windows-sys (windows)
+#   - dropped tests/ (46 MB of reference recordings), its [[test]] target and the
+#     serde_json dev-dependency
+# Every other source file is byte-identical to upstream.
+
+[package]
+edition = "2024"
+rust-version = "1.85.0"
+name = "alacritty_terminal"
+version = "0.26.0"
+authors = [
+    "Christian Duerr <contact@christianduerr.com>",
+    "Joe Wilm <joe@jwilm.com>",
+]
+description = "Library for writing terminal emulators"
+homepage = "https://alacritty.org"
+readme = "README.md"
+license = "Apache-2.0"
+repository = "https://github.com/alacritty/alacritty"
+publish = false
+
+[features]
+default = ["serde"]
+serde = ["dep:serde", "bitflags/serde", "vte/serde"]
+
+[dependencies]
+base64 = "0.22.0"
+bitflags = "2.4.1"
+log = "0.4"
+parking_lot = "0.12.0"
+regex-automata = "0.4.3"
+serde = { version = "1", features = ["derive", "rc"], optional = true }
+unicode-width = "0.2.0"
+vte = { version = "0.15.0", default-features = false, features = ["std", "ansi"] }

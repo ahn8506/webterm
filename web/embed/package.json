@@ -1,0 +1,16 @@
+{
+  "name": "webterm-embed",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "In-browser EmbeddingGemma 2 (WebGPU) for WebTerm scrollback search.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

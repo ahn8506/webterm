@@ -1,0 +1,22 @@
+[package]
+name = "webterm-renderer"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+webterm-frame = { path = "../frame" }
+# WebGPU backend only: no `webgl`/`gles` feature, so there is no WebGL fallback.
+wgpu = { version = "30.0.1", default-features = false, features = ["webgpu", "wgsl"] }
+bytemuck = { version = "1.25", features = ["derive"] }
+wasm-bindgen = "0.2.129"
+js-sys = "0.3"
+web-sys = { version = "0.3.106", features = [
+    "HtmlCanvasElement",
+    "ImageData",
+    "OffscreenCanvas",
+    "OffscreenCanvasRenderingContext2d",
+    "TextMetrics",
+] }

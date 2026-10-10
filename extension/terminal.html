@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebTerm</title>
+    <link rel="stylesheet" href="terminal.css" />
+  </head>
+  <body>
+    <header>
+      <select id="port"></select>
+      <input id="port-custom" placeholder="COM port" spellcheck="false" hidden />
+      <button id="refresh" title="Rescan ports">Rescan</button>
+      <select id="baud">
+        <option>9600</option>
+        <option>19200</option>
+        <option>38400</option>
+        <option>57600</option>
+        <option selected>115200</option>
+        <option>230400</option>
+        <option>460800</option>
+        <option>921600</option>
+      </select>
+      <button id="connect">Connect</button>
+      <label title="Treat a bare LF from the device as CR LF">
+        <input id="auto-cr" type="checkbox" /> LF→CRLF
+      </label>
+      <button id="tests-toggle" title="Show or hide the test panel">Tests</button>
+      <button id="search-toggle" title="Search the device output by meaning">Search</button>
+      <span id="counters" title="Bytes sent to / received from the port"></span>
+      <span id="status"></span>
+    </header>
+    <div id="workspace">
+      <div id="console">
+      <main id="screen">
+        <canvas id="canvas"></canvas>
+        <!-- Receives keyboard focus so IME composition (e.g. Korean) works. -->
+        <textarea id="input" autocapitalize="off" autocomplete="off" spellcheck="false"></textarea>
+      </main>
+      <form id="ask">
+        <div class="row">
+          <input id="ask-input" placeholder="Say what you want, e.g. 현재 폴더 파일 리스트 — the matching command is sent" spellcheck="false" autocomplete="off" />
+          <select id="ask-catalog" title="Which set of commands to match against"></select>
+          <label title="Let a small language model (Qwen3.5 0.8B, about 490 MB the first time) choose the command and fill in its values">
+            <input id="ask-llm" type="checkbox" /> LLM
+          </label>
+        </div>
+        <div id="ask-hint">Matched on this computer with EmbeddingGemma 2; the first use loads the model.</div>
+      </form>
+      </div>
+      <aside id="tests" hidden>
+        <div class="row">
+          <input id="device-url" placeholder="Device URL, e.g. http://192.168.0.1" spellcheck="false" />
+        </div>
+        <div class="row">
+          <select id="test-file"></select>
+          <button id="test-run">Run</button>
+        </div>
+        <label class="row" title="Pause before each web action and outline the element it acts on">
+          <input id="test-slow" type="checkbox" /> Slow (watch each step)
+        </label>
+        <div id="test-log"></div>
+      </aside>
+      <aside id="search" hidden>
+        <button id="search-load" title="Runs in this browser on WebGPU; nothing is sent anywhere">
+          Load EmbeddingGemma 2 (about 210 MB download the first time)
+        </button>
+        <form id="search-form" class="row">
+          <input id="search-query" placeholder="Describe what you are looking for, in any language" spellcheck="false" disabled />
+        </form>
+        <div id="search-status"></div>
+        <div id="search-results"></div>
+      </aside>
+    </div>
+    <script type="module" src="terminal.js"></script>
+  </body>
+</html>
