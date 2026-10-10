@@ -1,4 +1,4 @@
-import { Llm } from "../embed/llm-client.js";
+import { importBuilt } from "../search/model.js";
 
 let loading = null;
 
@@ -7,19 +7,23 @@ let loading = null;
  * of about 490 MB the first time ever). `onStatus` gets the progress text.
  */
 export function loadLlm(onStatus) {
-  loading ??= Llm.create({
-    onProgress({ file, loaded, total }) {
-      onStatus?.(
-        file && total
-          ? `Loading language model ${file}: ${Math.round((100 * loaded) / total)}%`
-          : "Loading language model…",
-      );
-    },
-  }).catch((error) => {
-    // Let a later call try again.
-    loading = null;
-    throw error;
-  });
+  loading ??= importBuilt("llm-client.js")
+    .then(({ Llm }) =>
+      Llm.create({
+        onProgress({ file, loaded, total }) {
+          onStatus?.(
+            file && total
+              ? `Loading language model ${file}: ${Math.round((100 * loaded) / total)}%`
+              : "Loading language model…",
+          );
+        },
+      }),
+    )
+    .catch((error) => {
+      // Let a later call try again.
+      loading = null;
+      throw error;
+    });
   return loading;
 }
 

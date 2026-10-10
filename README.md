@@ -21,7 +21,7 @@ Status: an experiment. Tried on Windows with Chrome only.
 
 | Path | Contents |
 |---|---|
-| `extension/` | The unpacked extension, including built WebAssembly and model runtime files |
+| `extension/` | The unpacked extension, including the built terminal WebAssembly |
 | `host/` | Native messaging host (Rust) |
 | `install/` | Registers the host for Chrome and Edge (PowerShell) |
 | `web/core`, `web/frame`, `web/renderer`, `web/app` | Terminal core, renderer and their WebAssembly glue (Rust) |
@@ -30,12 +30,17 @@ Status: an experiment. Tried on Windows with Chrome only.
 
 ## Run
 
-Requires Windows, Chrome 140 or later, and Rust.
+Requires Windows, Chrome 140 or later, Rust and Node.js.
 
 ```powershell
 cd host; cargo build --release; cd ..
 .\install\install.ps1
+cd web\embed; npm install; npm run build; cd ..\..
 ```
+
+The last line builds `extension\embed` (the model workers and ONNX Runtime),
+which is not in the repository. The terminal works without it; search and the
+ask bar do not.
 
 Then open `chrome://extensions`, enable Developer mode, choose "Load unpacked"
 and select the `extension` folder. Click the extension's icon to open the
@@ -50,11 +55,10 @@ node demo\device-server.mjs
 Pick "Demo device (mock)" as the port, and use `http://127.0.0.1:8791` as the
 device URL in the test panel.
 
-## Rebuild the WebAssembly and model workers
+## Rebuild the terminal WebAssembly
 
 ```powershell
-.\web\app\build.ps1                       # terminal -> extension\wasm
-cd web\embed; npm install; npm run build  # workers  -> extension\embed
+.\web\app\build.ps1   # -> extension\wasm
 ```
 
 The models themselves are not in the repository; the browser downloads them

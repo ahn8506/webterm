@@ -1,4 +1,12 @@
-import { Embedder } from "../embed/client.js";
+// extension/embed is build output that a fresh checkout does not have, so it
+// is only imported when a model is first asked for.
+export async function importBuilt(file) {
+  try {
+    return await import(`../embed/${file}`);
+  } catch {
+    throw new Error("extension/embed is missing; run npm install and npm run build in web/embed");
+  }
+}
 
 // terminal.html?dtype=q8 loads another precision of the model, to compare.
 const DTYPE = new URLSearchParams(location.search).get("dtype") ?? undefined;
@@ -13,17 +21,21 @@ const listeners = new Set();
  */
 export function loadEmbedder(onStatus) {
   if (onStatus) listeners.add(onStatus);
-  loading ??= Embedder.create({
-    dtype: DTYPE,
-    onProgress({ file, loaded, total }) {
-      const text =
-        file && total ? `Loading ${file}: ${Math.round((100 * loaded) / total)}%` : "Loading model…";
-      for (const listener of listeners) listener(text);
-    },
-  }).catch((error) => {
-    // Let a later call try again.
-    loading = null;
-    throw error;
-  });
+  loading ??= importBuilt("client.js")
+    .then(({ Embedder }) =>
+      Embedder.create({
+        dtype: DTYPE,
+        onProgress({ file, loaded, total }) {
+          const text =
+            file && total ? `Loading ${file}: ${Math.round((100 * loaded) / total)}%` : "Loading model…";
+          for (const listener of listeners) listener(text);
+        },
+      }),
+    )
+    .catch((error) => {
+      // Let a later call try again.
+      loading = null;
+      throw error;
+    });
   return loading.finally(() => listeners.delete(onStatus));
 }

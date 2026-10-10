@@ -1,5 +1,4 @@
-import { VectorIndex } from "../embed/client.js";
-import { loadEmbedder } from "./model.js";
+import { importBuilt, loadEmbedder } from "./model.js";
 
 const RESULT_COUNT = 8;
 const BATCH_LINES = 16;
@@ -91,6 +90,7 @@ export function initSearch(terminal) {
       loadButton.disabled = false;
       return;
     }
+    const { VectorIndex } = await importBuilt("client.js");
     index = new VectorIndex(embedder.dimensions);
     localStorage.setItem(LOADED_KEY, "1");
     loadButton.hidden = true;
